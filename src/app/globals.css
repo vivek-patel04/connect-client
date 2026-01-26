@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+:root {
+    --background: hsl(216, 24%, 96%);
+    --foreground: black;
+
+    --heading: 0.92rem;
+    --normal: 0.875rem;
+    --small: 0.8rem;
+}
+
+@theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --text-heading: var(--heading);
+    --text-normal: var(--normal);
+    --text-small: var(--small);
+
+    --color-white-98: hsl(216, 8%, 98%);
+    --color-white-95: hsl(216, 8%, 95%);
+    --color-white-90: hsl(216, 8%, 90%);
+    --color-white-85: hsl(216, 8%, 85%);
+    --color-white-60: hsl(216, 8%, 60%);
+    --color-white-50: hsl(216, 8%, 50%);
+    --color-white-40: hsl(216, 8%, 40%);
+    --color-white-30: hsl(216, 8%, 30%);
+    --color-white-20: hsl(216, 8%, 20%);
+
+    --color-body: hsl(216, 24%, 96%);
+    --color-d-blue: hsl(216, 20%, 35%);
+
+    --shadow-1: 0px 0px 20px rgba(0, 0, 0, 0.15);
+    --shadow-2: 0px 0px 7px rgba(0, 0, 0, 0.25);
+}
+
+@layer components {
+    /* BACKDROP */
+    .backdrop-auth {
+        @apply bg-white w-full px-3 md:px-5 py-8 rounded-3xl shadow-1;
+    }
+
+    .backdrop-blue-1 {
+        @apply bg-body w-full px-4 py-2 border border-white-85 rounded-xl;
+    }
+
+    .backdrop-white-1 {
+        @apply bg-white w-full px-6 py-4 rounded-2xl shadow-2;
+    }
+
+    .backdrop-heading {
+        @apply px-3 py-2 font-semibold bg-black text-white rounded-xl w-full;
+    }
+
+    .backdrop-user-mini {
+        @apply w-full px-2 py-3 bg-white border border-white-85 rounded-xl;
+    }
+
+    .backdrop-message-window {
+        @apply bg-white h-full border border-white-60 rounded-2xl py-4 px-2;
+    }
+
+    .backdrop-message-users {
+        @apply w-[316px] h-full bg-body rounded-2xl p-2 border border-white-60;
+    }
+
+    .backdrop-notification {
+        @apply w-full max-h-[500px] bg-white text-black shadow-1 rounded-b-2xl md:rounded-t-2xl border border-white-85 overflow-hidden;
+    }
+
+    .backdrop-burger-menu {
+        @apply max-w-[220px] w-full bg-black flex flex-col gap-4 px-5 pb-6 rounded-bl-2xl;
+    }
+
+    /* BUTTON */
+    .btn {
+        @apply bg-black text-white text-small font-medium rounded-[10px] px-3 py-2 hover:cursor-pointer active:text-white-85;
+    }
+
+    .btn-disable {
+        @apply bg-[hsl(0,0%,20%)] text-white/60 text-small rounded-[10px] px-3 py-2 hover:cursor-not-allowed;
+    }
+
+    .btn-auth {
+        @apply w-full bg-black text-white py-3 rounded-4xl hover:cursor-pointer md:hover:font-semibold active:text-white-85;
+    }
+
+    .btn-auth-disable {
+        @apply w-full bg-black text-white/80 py-3 rounded-4xl hover:cursor-not-allowed;
+    }
+
+    .btn-auth-outline {
+        @apply w-full bg-white text-black py-2.5 rounded-4xl border border-white-50 hover:cursor-pointer md:hover:font-semibold active:text-black active:bg-white-98;
+    }
+
+    .btn-outline {
+        @apply bg-transparent text-d-blue text-[0.7rem] border border-white-50 rounded-2xl px-2 py-0.5 hover:cursor-pointer active:text-black;
+    }
+
+    .btn-icon {
+        @apply text-white-60 p-1.5 rounded-xl hover:cursor-pointer hover:bg-black/5 active:bg-black/10;
+    }
+
+    .btn-text {
+        @apply text-white-30 hover:cursor-pointer hover:underline hover:decoration-white-60 active:text-black active:decoration-white-30;
+    }
+
+    /* INPUT */
+    .input-auth {
+        @apply border border-white-85 w-full p-2.5 rounded-xl placeholder:text-white-50 bg-body outline-none;
+    }
+
+    .input-text {
+        @apply border border-white-85 w-full p-2.5 rounded-xl placeholder:text-white-50 bg-body outline-none;
+    }
+
+    .text-area-user {
+        @apply w-full h-[120px] p-2 border border-white-85 rounded-xl placeholder:text-white-50 bg-body outline-none resize-none;
+    }
+
+    /* NAVBAR */
+    .navbar {
+        @apply xl:mt-3 h-[58px] md:h-[68px] bg-black xl:rounded-4xl text-white px-5 flex items-center justify-between;
+    }
+
+    .nav-item-desktop {
+        @apply text-white-90 px-1 hover:cursor-pointer hover:-translate-y-px active:text-white transition-transform duration-150;
+    }
+
+    .nav-item-mobile {
+        @apply w-full text-white p-2 rounded-xl hover:cursor-pointer hover:bg-white hover:text-black hover:font-semibold active:bg-body text-start;
+    }
+
+    /* DROPDOWN */
+    .dropdown-bg {
+        @apply bg-white border border-white-85 rounded-xl  p-3 w-full mt-1 absolute z-10 flex flex-col gap-2;
+    }
+
+    .dropdown-el {
+        @apply py-2 px-3 rounded-xl text-black hover:bg-black hover:text-white active:text-white-95;
+    }
+
+    /* LOADING  SKELETON*/
+    .loading-line-small {
+        @apply bg-white-50 max-w-[310px] w-full h-5 rounded-full animate-pulse [animation-duration:1s];
+    }
+
+    .loading-line-mid {
+        @apply bg-white-50 max-w-[420px] w-full h-7 rounded-full animate-pulse [animation-duration:1s];
+    }
+
+    .loading-card-white {
+        @apply bg-white w-full h-40 px-6 py-4 rounded-2xl shadow-2 animate-pulse [animation-duration:1s];
+    }
+
+    /* MISC */
+    .modal-bg {
+        @apply fixed inset-0 z-10 bg-[hsla(216,15%,10%,0.5)];
+    }
+
+    .number-cicle {
+        @apply text-[0.7rem] text-white px-1.5 bg-black rounded-full;
+    }
+}
+
+body {
+    background: var(--background);
+    color: var(--foreground);
+    font-size: var(--normal);
+    overflow-y: scroll;
+}
+
+.container {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.lock-scroll {
+    position: fixed;
+    width: 100%;
+}
+
+.no-scrollbar {
+    scrollbar-width: none;
+}
+
+.thin-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: hsla(216, 20%, 70%, 0.3) transparent;
+}
