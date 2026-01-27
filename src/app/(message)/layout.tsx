@@ -7,7 +7,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div className="h-screen flex flex-col scrollbar-custom">
+        <div className="h-screen flex flex-col">
             <header className="container">
                 <Navbar />
             </header>

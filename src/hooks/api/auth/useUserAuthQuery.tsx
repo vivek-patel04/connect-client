@@ -1,10 +1,10 @@
-import { UserProfileType } from "@/types/user/types";
+import { UserMiniType } from "@/types/user/types";
 import { authWithRefresh } from "@/utils/authWithRefresh";
 import { useQuery } from "@tanstack/react-query";
 
-const getMe = async (): Promise<UserProfileType> => {
+const userAuth = async (): Promise<UserMiniType> => {
     const apiCall = async () => {
-        return await fetch(`/api/user/me`, {
+        return await fetch(`/api/auth/authentication`, {
             method: "GET",
             credentials: "include",
             headers: { Accept: "application/json" },
@@ -19,16 +19,16 @@ const getMe = async (): Promise<UserProfileType> => {
     const data = await response.json();
 
     if (!response.ok) {
-        throw new Error(data.message || "Failed to get me");
+        throw new Error(data.message || "Failed to validate user authentication");
     }
 
-    return data.me;
+    return data.user;
 };
 
-export const useGetMeQuery = () => {
+export const useUserAuthQuery = () => {
     return useQuery({
-        queryKey: ["me"],
-        queryFn: getMe,
+        queryKey: ["user-auth"],
+        queryFn: userAuth,
         retry: false,
         staleTime: 1000 * 60 * 30,
     });

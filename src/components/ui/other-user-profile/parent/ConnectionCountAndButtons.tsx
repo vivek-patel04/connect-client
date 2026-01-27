@@ -1,6 +1,5 @@
 "use client";
 
-import { useUserProfileContext } from "@/context/UserProfileProvider";
 import { useGetConnectionCountQuery } from "@/hooks/api/user/useGetConnectionCountQuery";
 import { useGetRelationQuery } from "@/hooks/api/user/useGetRelationQuery";
 import { useAcceptRequestMutation } from "@/hooks/api/user/useAcceptRequestMutation";
@@ -12,11 +11,14 @@ import ErrorMessage from "../../error/ErrorMessage";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/hooks/redux/hooks";
 import { setActiveChat } from "@/store/features/activeChatSlice";
+import { useUserIDContext } from "@/context/UserIDProvider";
+import { useGetUserProfileQuery } from "@/hooks/api/user/useGetUserProfileQuery";
 
 function ConnectionCountAndButtons() {
-    const { userProfile } = useUserProfileContext();
-    const { data: userRelation, isLoading: relationLoading, error: relationError } = useGetRelationQuery(userProfile.id);
-    const { data: count, isLoading: countLoading, error: countError } = useGetConnectionCountQuery(userProfile.id);
+    const { userID } = useUserIDContext();
+    const { data: userRelation, isLoading: relationLoading, error: relationError } = useGetRelationQuery(userID);
+    const { data: count, isLoading: countLoading, error: countError } = useGetConnectionCountQuery(userID);
+    const { data: user, isLoading: userLoading, error: userError } = useGetUserProfileQuery(userID);
     const { mutateAsync: sendRequest } = useSendRequestMutation();
     const { mutateAsync: acceptRequest } = useAcceptRequestMutation();
     const { mutateAsync: rejectRequest } = useRejectRequestMutation();
@@ -26,7 +28,7 @@ function ConnectionCountAndButtons() {
     const router = useRouter();
     const dispatch = useAppDispatch();
 
-    if (relationLoading || countLoading)
+    if (relationLoading || countLoading || userLoading)
         return (
             <div>
                 <div className="loading-line-small" />
@@ -34,39 +36,39 @@ function ConnectionCountAndButtons() {
             </div>
         );
 
-    if (relationError || countError) return <ErrorMessage />;
+    if (relationError || countError || userError) return <ErrorMessage />;
 
-    if (!userRelation || count === undefined) return null;
+    if (!userRelation || count === undefined || !user) return null;
 
     let relation = userRelation.relation;
 
     const handleSendRequest = async () => {
         try {
-            await sendRequest(userProfile.id);
+            await sendRequest(user.id);
         } catch (error) {}
     };
     const handleAcceptRequest = async () => {
         try {
-            await acceptRequest(userProfile.id);
+            await acceptRequest(user.id);
         } catch (error) {}
     };
     const handleRejectRequest = async () => {
         try {
-            await rejectRequest(userProfile.id);
+            await rejectRequest(user.id);
         } catch (error) {}
     };
     const handleDeleteConnection = async () => {
         try {
-            await deleteConnection(userProfile.id);
+            await deleteConnection(user.id);
         } catch (error) {}
     };
     const handleCancelRequest = async () => {
         try {
-            await cancelRequest(userProfile.id);
+            await cancelRequest(user.id);
         } catch (error) {}
     };
     const handleClickMessage = () => {
-        dispatch(setActiveChat({ name: userProfile.name, userID: userProfile.id, thumbnailURL: userProfile.personalData.thumbnailURL }));
+        dispatch(setActiveChat({ name: user.name, userID: user.id, thumbnailURL: user.personalData.thumbnailURL }));
         router.push("/message");
     };
 

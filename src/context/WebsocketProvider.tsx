@@ -1,5 +1,5 @@
 "use client";
-import { useGetMeQuery } from "@/hooks/api/user/useGetMeQuery";
+import { useUserAuthQuery } from "@/hooks/api/auth/useUserAuthQuery";
 import { addComment } from "@/utils/websocketHandlers/addComment";
 import { addLike } from "@/utils/websocketHandlers/addLike";
 import { addMessage } from "@/utils/websocketHandlers/addMessage";
@@ -17,12 +17,12 @@ interface ContextType {
 const WebsocketContext = createContext<ContextType | null>(null);
 
 export default function WebsocketProvider({ children }: { children: React.ReactNode }) {
-    const { data: user } = useGetMeQuery();
+    const { data: user } = useUserAuthQuery();
     const [socket, setSocket] = useState<WebSocket | null>(null);
     const queryClient = useQueryClient();
 
     useEffect(() => {
-        if (!user?.id) return;
+        if (!user) return;
         const socket = new WebSocket("ws://localhost:8080/ws/");
 
         socket.onopen = () => {

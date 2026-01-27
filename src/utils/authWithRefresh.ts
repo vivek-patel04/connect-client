@@ -11,7 +11,7 @@ async function refresh(): Promise<void> {
     });
 
     if (!res.ok) {
-        await fetch(`${baseURL}/api/auth/logout`, {
+        await fetch(`${baseURL}/bff/api/auth/logout`, {
             method: "POST",
             credentials: "include",
         });

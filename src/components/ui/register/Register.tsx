@@ -32,7 +32,7 @@ export default function Register() {
         try {
             await mutateAsync({ name: data.name, email: data.email, password: data.password });
             setInput({ name: "", email: "", password: "", confirmPassword: "" });
-            router.push("/profile");
+            router.push("/feed");
         } catch (error: any) {
             setErrorMessage(`* ${error.message}`);
             setInput(prev => ({ ...prev, password: "", confirmPassword: "" }));

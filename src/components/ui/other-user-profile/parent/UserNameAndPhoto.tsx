@@ -1,10 +1,24 @@
 "use client";
 
 import Image from "next/image";
-import { useUserProfileContext } from "@/context/UserProfileProvider";
+import { useUserIDContext } from "@/context/UserIDProvider";
+import { useGetUserProfileQuery } from "@/hooks/api/user/useGetUserProfileQuery";
+import ProfilePhotoAndNameLoading from "../../loading/ProfilePhotoAndNameLoading";
+import ErrorMessage from "../../error/ErrorMessage";
 
 export default function UserNameAndPhoto() {
-    const { userProfile: user } = useUserProfileContext();
+    const { userID } = useUserIDContext();
+    const { data: user, isLoading, error } = useGetUserProfileQuery(userID);
+
+    if (isLoading) return <ProfilePhotoAndNameLoading />;
+
+    if (error) {
+        console.log(error);
+        return <ErrorMessage message={"Something went wrong, error on loading profile photo and name."} />;
+    }
+
+    if (!user) return;
+
     return (
         <div className="py-5 bg-white w-[316px] border border-white-85 rounded-2xl flex items-center justify-center">
             <div className="flex flex-col gap-3 items-center">

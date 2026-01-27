@@ -19,12 +19,14 @@ import LogoutMobile from "../child/LogoutMobile";
 import NotificationWindow from "../../notification-window/parent/NotificationWindow";
 import { useState } from "react";
 import SearchWindow from "../../search-window/parent/SearchWindow";
+import { useUserAuthQuery } from "@/hooks/api/auth/useUserAuthQuery";
 
 export default function Navbar() {
     const { isNotificationMobileOpen, isBurgerMenuOpen } = useAppSelector(state => state.ui);
     const dispatch = useAppDispatch();
 
     const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const { data: authentication } = useUserAuthQuery();
 
     return (
         <div className="relative">

@@ -6,9 +6,9 @@ import Education from "@/components/ui/own-profile/parent/Education";
 import Skills from "@/components/ui/own-profile/parent/Skills";
 import Work from "@/components/ui/own-profile/parent/Work";
 
-export default function Profile() {
+export default function OwnProfile() {
     return (
-        <div className="container flex flex-col items-start gap-5">
+        <div className="flex flex-col items-start gap-5">
             <section className="w-full">
                 <ViewerPhotoAndName />
             </section>

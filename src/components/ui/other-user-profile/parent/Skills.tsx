@@ -1,12 +1,31 @@
 "use client";
 
 import SkillCard from "../child/SkillCard";
-import { useUserProfileContext } from "@/context/UserProfileProvider";
+import { useGetUserProfileQuery } from "@/hooks/api/user/useGetUserProfileQuery";
+import { useUserIDContext } from "@/context/UserIDProvider";
+import ErrorMessage from "../../error/ErrorMessage";
 
 export default function Skills() {
-    const { userProfile } = useUserProfileContext();
+    const { userID } = useUserIDContext();
+    const { data: user, isLoading, error } = useGetUserProfileQuery(userID);
 
-    const skills = userProfile.personalData.skills;
+    if (isLoading) {
+        return (
+            <div className="flex flex-col gap-5">
+                <div className="loading-card-white">
+                    <div className="loading-line-small"></div>
+                    <div className="loading-line-mid mt-3"></div>
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        console.log(error);
+        return <ErrorMessage />;
+    }
+
+    const skills = user?.personalData?.skills || [];
 
     return (
         <div className="backdrop-white-1">

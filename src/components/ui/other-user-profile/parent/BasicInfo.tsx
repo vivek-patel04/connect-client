@@ -1,10 +1,32 @@
 "use client";
 
-import { useUserProfileContext } from "@/context/UserProfileProvider";
+import { useGetUserProfileQuery } from "@/hooks/api/user/useGetUserProfileQuery";
+import { useUserIDContext } from "@/context/UserIDProvider";
+import ErrorMessage from "../../error/ErrorMessage";
 
 function BasicInfo() {
-    const { userProfile } = useUserProfileContext();
-    const { dob, gender, hometown, languages, interests } = userProfile.personalData;
+    const { userID } = useUserIDContext();
+    const { data: user, isLoading, error } = useGetUserProfileQuery(userID);
+
+    if (isLoading) {
+        return (
+            <div className="flex flex-col gap-5">
+                <div className="loading-card-white">
+                    <div className="loading-line-small"></div>
+                    <div className="loading-line-mid mt-3"></div>
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        console.log(error);
+        return <ErrorMessage />;
+    }
+
+    if (!user) return;
+
+    const { dob, gender, hometown, languages, interests } = user.personalData;
 
     let showBasicInfo = true;
     if (!dob && !gender && !hometown && languages.length === 0 && interests.length === 0) {
