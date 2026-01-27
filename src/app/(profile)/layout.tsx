@@ -1,6 +1,11 @@
 import Footer from "@/components/ui/footer/Footer";
 import Navbar from "@/components/ui/navbar/parent/Navbar";
 
+export const metadata = {
+    title: "Profile",
+    description: "See user profile.",
+};
+
 export default function RootLayout({
     children,
 }: Readonly<{

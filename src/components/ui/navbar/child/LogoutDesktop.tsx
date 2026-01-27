@@ -5,7 +5,7 @@ import { HiMiniPower } from "react-icons/hi2";
 
 export default function LogoutDesktop() {
     const handleLogout = async () => {
-        await fetch(`/api/auth/logout`, { method: "POST", credentials: "include" }).catch(error => ({}));
+        await fetch(`/bff/api/auth/logout`, { method: "POST", credentials: "include" }).catch(error => ({}));
         window.location.replace(clientBaseUrl as string);
     };
     return (

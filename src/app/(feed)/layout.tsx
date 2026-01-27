@@ -1,6 +1,11 @@
 import Footer from "@/components/ui/footer/Footer";
 import Navbar from "@/components/ui/navbar/parent/Navbar";
 
+export const metadata = {
+    title: "Feed",
+    description: "See the posts from your network.",
+};
+
 export default function RootLayout({
     children,
 }: Readonly<{

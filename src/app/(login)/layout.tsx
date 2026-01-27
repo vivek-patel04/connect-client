@@ -1,5 +1,10 @@
 import Footer from "@/components/ui/footer/Footer";
 
+export const metadata = {
+    title: "Login",
+    robots: "noindex",
+};
+
 export default function RootLayout({
     children,
 }: Readonly<{
