@@ -23,7 +23,10 @@ export default function NotificationCard({ notification }: { notification: Notif
 
     const handleClickNotification = async () => {
         try {
-            await markAsRead(notification._id);
+            if (!notification.isRead) {
+                await markAsRead(notification._id);
+            }
+
             switch (notification.type) {
                 case "like":
                     router.push(`/post/${notification.meta.postID}`);
@@ -42,7 +45,7 @@ export default function NotificationCard({ notification }: { notification: Notif
                     break;
 
                 case "welcome-message":
-                    router.push(`/profile`);
+                    router.push(`/profile/${notification.meta.userID}`);
                     break;
 
                 default:

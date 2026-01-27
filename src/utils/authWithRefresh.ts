@@ -16,7 +16,6 @@ async function refresh(): Promise<void> {
             credentials: "include",
         });
 
-        window.location.replace(baseURL as string);
         throw new Error("Refresh failed");
     }
 }

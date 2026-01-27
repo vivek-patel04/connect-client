@@ -23,7 +23,7 @@ export default function WebsocketProvider({ children }: { children: React.ReactN
 
     useEffect(() => {
         if (!user) return;
-        const socket = new WebSocket("ws://localhost:8080/ws/");
+        const socket = new WebSocket("/ws");
 
         socket.onopen = () => {
             console.log("live");
